@@ -1,0 +1,42 @@
+#define SensorDig 7
+#define SensorAnalog A5
+#define ledAlarme 12
+#define led 10
+#define som 8
+#define rele 3
+   
+void setup()
+{
+  Serial.begin(9600);
+  pinMode (SensorDig, INPUT);
+  pinMode (SensorAnalog, INPUT);
+  pinMode (ledAlarme, OUTPUT);
+  pinMode (som, OUTPUT);
+  pinMode(rele, OUTPUT);
+  pinMode (led, OUTPUT);
+}
+  void loop() 
+{ 
+    int valorSensorGas = analogRead (SensorAnalog);
+    Serial.println(valorSensorGas);
+    delay(1000);
+        
+ if (valorSensorGas >250)      
+  {       
+    digitalWrite(led,0);
+    digitalWrite(ledAlarme,1);            
+    tone(som, 1500);
+    delay(500);
+    noTone (som);
+    digitalWrite(ledAlarme,0);   
+    delay(500);
+    digitalWrite(rele, 1);
+  }
+  else  
+  {
+    digitalWrite(led,1);
+    digitalWrite(ledAlarme, 0); 
+    noTone (som);
+    digitalWrite(rele, 0);
+  }
+}
